@@ -397,6 +397,11 @@ var commands = map[string]CliCommand{
 		description: "Inspect a caught pokemon",
 		callback:    commandInspect,
 	},
+	"pokedex": {
+		name:        "pokedex",
+		description: "Pokedex detail",
+		callback:    commandPokedex,
+	},
 }
 
 var catchedPokemons = map[string]Pokemon{}
@@ -581,6 +586,19 @@ func commandInspect(config *Config, paramter string) error {
 	fmt.Printf("Weight: %d\n", pokemon.Weight)
 	fmt.Println("Stats:")
 	fmt.Printf(" -hp: %d\n", pokemon.Stats[0].BaseStat)
+	return nil
+}
+
+func commandPokedex(config *Config, parameter string) error {
+	if len(catchedPokemons) == 0 {
+		fmt.Println("No pokemon caught")
+		return nil
+	}
+	fmt.Println("Your Pokedex:")
+	for key := range catchedPokemons {
+		fmt.Printf("- %s\n", key)
+	}
+
 	return nil
 }
 
